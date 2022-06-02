@@ -13,31 +13,31 @@ namespace NovoReclameAcesso.Models
         public string Nome { get; set; }
         public string Email { get; set; }
 
-        private List<string> Colunas { get; set; }
-        private List<string> Parametros { get; set; }
+        private List<string> _Colunas { get; set; }
+        private List<string> _Parametros { get; set; }
 
 
         public Usuarios()
         {
-            Parametros = new List<string>();
-            Parametros.Add("''");
-            Parametros.Add("@Nome");
-            Parametros.Add("@Email");
+            _Parametros = new List<string>();
+            _Parametros.Add("''");
+            _Parametros.Add("@Nome");
+            _Parametros.Add("@Email");
 
-            Colunas = new List<string>();
-            Colunas.Add("IdUsuarios");
-            Colunas.Add("Nome");
-            Colunas.Add("Email");
+            _Colunas = new List<string>();
+            _Colunas.Add("IdUsuarios");
+            _Colunas.Add("Nome");
+            _Colunas.Add("Email");
         }
 
         public List<string> GetParametros()
         {
-            return Parametros;
+            return _Parametros;
         }
 
         public List<string> GetColunas()
         {
-            return Colunas;
+            return _Colunas;
         }
     }
 }

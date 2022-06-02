@@ -13,35 +13,35 @@ namespace NovoReclameAcesso.Dao
 
     internal class LerDados : ILerDados
     {
-        private readonly MySql.Data.MySqlClient.MySqlConnection conexao;
-        private readonly MySql.Data.MySqlClient.MySqlCommand comando;
-        private MySql.Data.MySqlClient.MySqlDataReader leitor;
-        private List<string> colunas;
+        private readonly MySql.Data.MySqlClient.MySqlConnection _conexao;
+        private readonly MySql.Data.MySqlClient.MySqlCommand _comando;
+        private MySql.Data.MySqlClient.MySqlDataReader _leitor;
+        private List<string> _colunas;
 
         public LerDados(List<string> colunas, string stringConexao, string query)
         {
-            this.conexao = new MySql.Data.MySqlClient.MySqlConnection(stringConexao);
-            this.comando = new MySql.Data.MySqlClient.MySqlCommand(query, conexao);
-            this.colunas = colunas;
+            _conexao = new MySql.Data.MySqlClient.MySqlConnection(stringConexao);
+            _comando = new MySql.Data.MySqlClient.MySqlCommand(query, _conexao);
+            _colunas = colunas;
         }
 
         public List<string> Ler()
         {
             List<string> resultado = new List<string>();
 
-            conexao.Open();
+            _conexao.Open();
 
             try
             {
-                using (comando)
+                using (_comando)
                 {
-                    leitor = comando.ExecuteReader();
+                    _leitor = _comando.ExecuteReader();
 
-                    while (leitor.Read())
+                    while (_leitor.Read())
                     {
-                        foreach (string coluna in colunas)
+                        foreach (string coluna in _colunas)
                         {
-                            resultado.Add(Convert.ToString(leitor[$"{coluna}"].ToString()));
+                            resultado.Add(Convert.ToString(_leitor[$"{coluna}"].ToString()));
                         }
                     }
 
@@ -59,7 +59,7 @@ namespace NovoReclameAcesso.Dao
             }
             finally
             {
-                conexao.Close();
+                _conexao.Close();
             }
         }
     }
